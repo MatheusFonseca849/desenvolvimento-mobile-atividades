@@ -7,17 +7,14 @@ const MegaSenaScreen = () => {
     const [numeros, setNumeros] = useState([]);
 
     const geraNumeros = () => {
-        const numerosSorteados = [];
+        const numerosSorteados = new Set();
 
-        while (numerosSorteados.length < 6) {
+        while (numerosSorteados.size < 6) {
             const numeroAleatorio = Math.floor(Math.random() * 60) + 1;
-            if (!numerosSorteados.includes(numeroAleatorio)) {
-                numerosSorteados.push(numeroAleatorio);
-            }
+            numerosSorteados.add(numeroAleatorio);
         }
 
         setNumeros([...numeros, numerosSorteados]);
-        console.log(numeros);   
     }
 
     return (
@@ -38,7 +35,7 @@ const MegaSenaScreen = () => {
            <FlatList
              data={numeros}
              renderItem={({ item }) => (
-               <Text>{item.join(", ")}</Text>
+               <Text>{Array.from(item).join(", ")}</Text>
              )}
            />
          </Card.Content>
