@@ -10,12 +10,11 @@ import {
   IconButton,
 } from "react-native-paper";
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation, route}) {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     getUsers();
-    console.log(users);
   }, []);
 
   const getUsers = async () => {
@@ -33,9 +32,10 @@ export default function HomeScreen() {
       <FlatList
         data={users}
         renderItem={(user) => {
-          console.log(user);
           return (
-            <Card style={{ marginBottom: 12 }}>
+            <Card style={{ marginBottom: 12 }}
+            onPress={() => navigation.navigate('UserScreen', user.item.id)}
+            >
               <Card.Title
                 title={user.item.username}
                 left={(props) => (
